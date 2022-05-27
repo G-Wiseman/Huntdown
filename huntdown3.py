@@ -6,7 +6,7 @@ George Wiseman
 """
 
 
-from typing import Dict
+from typing import Dict, Tuple
 
 def handle_yn_input(message:str) -> bool:
     """
@@ -109,8 +109,12 @@ def input_points () -> dict:
 
     # All sheets are added, now print the final scores
     print("Final Scores Are:")
-    for cabin in cabin_dict:
-        print(cabin, str(cabin_dict[cabin]))
+    cabin_tup_list = list(cabin_dict.items())
+
+    cabin_tup_list.sort(key= lambda x : x[1], reverse=True)
+    for cabin in cabin_tup_list:
+        print(f"{cabin[0]}:{cabin[1]}")
+
 
 def main():
     """
