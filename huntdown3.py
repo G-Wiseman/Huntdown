@@ -54,7 +54,7 @@ def handle_int_input(message:str) -> int:
             answer = input(message)
 
 
-def create_cabin_dict () -> dict:
+def create_cabin_dict () -> Dict[str, int]:
     """
     Handles the input phase for creating the dictionaries for this game.
     Users will be prompted to input cabin names, and asked if they
@@ -63,13 +63,22 @@ def create_cabin_dict () -> dict:
     add_cabin_bool = True
     cabin_dict = {}
     while add_cabin_bool:
-        cabin_name = input("Type Cabin Name: ")
-        cabin_dict[cabin_name] = 0
-        print("")
-        add_cabin_bool = handle_yn_input("Add another cabin? Type y/n: ")
-        print("")
+        add_cabin_bool, cabin_name = handle_cabin_input("\nType Cabin Name or \"done\" when finished:")
+        if add_cabin_bool:
+            cabin_dict[cabin_name] = 0
 
     return cabin_dict
+
+def handle_cabin_input(message) -> Tuple[bool, str]:
+    answer = input(message)
+
+    if answer.lower() == 'done':
+        print("All cabins have been input. Moving on to scoring!\n")
+        return False, ""
+
+    else:
+        print(f"{answer} has been added!")
+        return True, answer
 
 
 def input_points () -> dict:
